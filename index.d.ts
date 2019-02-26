@@ -8,3 +8,5 @@ declare module 'vue/types/vue'  {
     $requestExternalWalletAccess: () => Promise<void>;
   }
 }
+
+export * from './index';
