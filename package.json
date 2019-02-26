@@ -1,7 +1,7 @@
 {
   "name": "@decent-bet/vue-connex-entities",
   "version": "1.0.0",
-  "description": "",
+  "description": "Vue plugin for @decent-bet/connex-entities",
   "main": "lib/index.js",
   "directories": {
     "lib": "lib"
