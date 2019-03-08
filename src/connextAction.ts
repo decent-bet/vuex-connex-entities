@@ -4,7 +4,7 @@ import { ContractSetting } from '@decent-bet/connex-entities/types';
 import { ActionContext } from 'vuex';
 
 
-export const PREFIX: string = 'connex-entities';
+export const PREFIX: string = 'connexEntities';
 const commitOptions = { root: true };
 
 function requestExternalWalletAccess<S, R>({ commit }: ActionContext<S, R>) {
