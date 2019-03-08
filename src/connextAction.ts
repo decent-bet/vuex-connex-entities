@@ -7,7 +7,6 @@ import { ActionContext } from 'vuex';
 export const PREFIX: string = 'connex-entities';
 const commitOptions = { root: true };
 
-
 function requestExternalWalletAccess<S, R>({ commit }: ActionContext<S, R>) {
   return async () => {
     const { connex, thor } = <any>window;

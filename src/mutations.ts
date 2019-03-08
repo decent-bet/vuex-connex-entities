@@ -1,5 +1,5 @@
 import { IConnexEntitiesState } from './state';
-import { PREFIX } from './connex-entities';
+import { PREFIX } from './connextAction';
 
 
 export const connextEntitiesMutations = {
