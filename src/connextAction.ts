@@ -3,10 +3,6 @@ import { ConnexService, CometService } from '@decent-bet/connex-entities';
 import { ContractSetting } from '@decent-bet/connex-entities/types';
 import { ActionContext } from 'vuex';
 
-
-export const PREFIX: string = 'connexEntities';
-const commitOptions = { root: true };
-
 function requestExternalWalletAccess<S, R>({ commit }: ActionContext<S, R>) {
   return async () => {
     const { connex, thor } = <any>window;
@@ -15,14 +11,14 @@ function requestExternalWalletAccess<S, R>({ commit }: ActionContext<S, R>) {
     const { chainTag, publicAddress } = await rq();
     ConnexService.chainTag = chainTag;
     ConnexService.defaultAccount = publicAddress;
-    commit(`${PREFIX}/EXTERNAL_WALLET_PERMISSION`, true, commitOptions);
+    commit('EXTERNAL_WALLET_PERMISSION', true);
   };
 }
 
 function setupContracts<S, R>({ commit }: ActionContext<S, R>) {
   return (contracts: ContractSetting[]) => {
     ConnexService.setupContracts(contracts);
-    commit(`${PREFIX}/SET_ENTITIES_LOADED`, true, commitOptions);
+    commit('SET_ENTITIES_LOADED', true);
   };
 }
 

@@ -3,7 +3,6 @@ export interface IConnexEntitiesState {
     requestedExternalWalletPermission: boolean;
 }
 
-
 export const ConnexEntitiesDefaultState = (): IConnexEntitiesState => ({
     entitiesLoaded: false,
     requestedExternalWalletPermission: false
