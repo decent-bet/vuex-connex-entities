@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "Vuex enhanced action for @decent-bet/connex-entities",
   "main": "lib/index.js",
+  "types": "index.d.ts",
   "directories": {
     "lib": "lib"
   },
