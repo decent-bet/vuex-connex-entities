@@ -1,17 +1,19 @@
 {
     "compilerOptions": {
+        "target": "es6",
         "module": "commonjs",
-        "esModuleInterop": true,
-        "target": "es2016",
-        "noImplicitAny": false,
-        "moduleResolution": "node",
-        "sourceMap": false,
-        "outDir": "lib",
-        "baseUrl": "src",
-        "paths": {
-            "*": ["node_modules/*", "src/types/*"]
-        }
+        "strictNullChecks": true,
+        "outDir": "./dist",
+        "noImplicitAny": true,
+        "removeComments": false,
+        "preserveConstEnums": true,
+        "experimentalDecorators": true,
+        "inlineSourceMap": true,
+        "declaration": true
     },
-    "include": ["**/*"],
-    "exclude": ["node_modules", "**/*.spec.ts"]
+    "exclude": ["**/*.spec.ts", "examples"],
+    "include": [
+        "./src",
+        "jest.config.js"
+    ]
 }

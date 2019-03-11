@@ -1,33 +1,42 @@
 /* eslint-disable no-param-reassign */
-import { ConnexService, CometService } from '@decent-bet/connex-entities';
-import { ContractSetting } from '@decent-bet/connex-entities/types';
+import { CometService, ConnexService, OnConnexReady } from '@decent-bet/connex-entities';
+import { ContractSetting, IConnexContract } from '@decent-bet/connex-entities/types';
 import { ActionContext } from 'vuex';
 
 function requestExternalWalletAccess<S, R>({ commit }: ActionContext<S, R>) {
   return async () => {
-    const { connex, thor } = <any>window;
-    ConnexService.instance = connex;
+    const { connex, thor } = window as any;
+    (ConnexService as any).instance = connex;
     const rq = CometService.requestExternalWalletAccess(thor, connex);
     const { chainTag, publicAddress } = await rq();
-    ConnexService.chainTag = chainTag;
-    ConnexService.defaultAccount = publicAddress;
+    (ConnexService as any).chainTag = chainTag;
+    (ConnexService as any).defaultAccount = publicAddress;
     commit('EXTERNAL_WALLET_PERMISSION', true);
   };
 }
 
 function setupContracts<S, R>({ commit }: ActionContext<S, R>) {
-  return (contracts: ContractSetting[]) => {
-    ConnexService.setupContracts(contracts);
+  return async (contracts: ContractSetting[]) => {
+    const connex = window.connex;
+    const rq = CometService.requestExternalWalletAccess((window as any).thor, window.connex);
+    const { chainTag, publicAddress } = await rq();
+
+    contracts.forEach((i: { name: string | number; contract: new () => IConnexContract; }) => {
+      // eslint-disable-next-line new-cap
+      const instance = new i.contract() as OnConnexReady;
+      instance.onConnexReady(connex as Connex, chainTag, publicAddress);
+      (ConnexService as any).contractInstances[i.name] = instance;
+    });
     commit('SET_ENTITIES_LOADED', true);
   };
 }
 
-export function connexAction(action: <S, R>(context: ActionContext<S, R>, payload: any)=> any) {
+export function connexAction<T>(action: <S, R>(context: ActionContext<S, R>, payload: any) => T) {
   return <S, R>(context: ActionContext<S, R>, payload: any) => {
     context.setupContracts = setupContracts(context);
-    context.requestExternalWalletAccess = requestExternalWalletAccess(context);
-    context.$contractEntities = ConnexService.contractInstances;
-    context.$connex = ConnexService.instance;
+    context.requestExternalWalletAccess = requestExternalWalletAccess<S, R>(context);
+    context.$contractEntities = (ConnexService as any).contractInstances;
+    context.$connex = (ConnexService as any).instance;
     return action(context, payload);
   };
 }
