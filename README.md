@@ -4,6 +4,7 @@ Vuex Connex Entities allows to add [@decent-bet/connex-entities](https://github.
 
 - `getContract()`: return a contract instance of a class based on [@decent-bet/connex-entities](https://github.com/decent-bet/connex-entities).
 - `requestExternalWalletAccess()`: request access to an external wallet.
+- `walletInfo`: an object that store the public address and the current chain tag, check the interface [WalletInfo](/src/types.ts#L1).
 
 #### Getting started
 
@@ -12,6 +13,19 @@ Vuex Connex Entities allows to add [@decent-bet/connex-entities](https://github.
 
 
 ### Using the enhanced action
+> Frist of all you need to add some mutations to your store or module of your store:
+``` typescript
+  import { connexEntitiesMutations } from '@decent-bet/vuex-connex-entities';
+
+  ...
+   mutations: {
+     // your mutations
+     ...connexEntitiesMutations
+   },
+   ...
+```
+
+> Create an action:
 
 ``` typescript
 import { ActionContext } from 'vuex';
@@ -42,6 +56,21 @@ const getWalletAccess = connexAction<Promise<void>>(async <MySubState, MyRootSta
   commit('WALLET_ACCESS_ACTION', result);
 });
 
+
+// get the wallet info, you only be able to access the walletInfo after call to requestExternalWalletAccess() method
+const setupWappet = connexAction<Promise<void>>(<MySubState, MyRootState>(
+  context: ActionContext<MySubState, MyRootState>, balance?: any
+) => {
+  const {
+    commit,
+    walletInfo // WalletInfo
+  } = context;
+
+  // access to the public address and the chain tag
+  const { publicAddress, chainTag } = walletInfo;
+  console.log(`My address is: ${publicAddress} and the chainTag is: ${chainTag}`);
+  commit('SETUP_WALLET_ACTION', walletInfo);
+});
 
 // get any created contract based on @decent-bet/connex-entities
 const getBalance = connexAction<Promise<void>>(async <MySubState, MyRootState>(

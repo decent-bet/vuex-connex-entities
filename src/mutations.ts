@@ -1,6 +1,6 @@
 import { ConnextEntitiesPayload } from './types';
 
-export const connextEntitiesMutations = {
+export const connexEntitiesMutations = {
   ['CONNEX_ENTITIES_LOADED']: (
     state: any,
     { success, error }: ConnextEntitiesPayload,
