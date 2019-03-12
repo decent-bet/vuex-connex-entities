@@ -6,8 +6,7 @@
   "typings": "dist/index.d.ts",
   "scripts": {
     "build": "rm -rf dist/; tsc -p .",
-    "lint": "tslint  --fix -p .",
-    "publish": "npm run build && npm publish"
+    "lint": "tslint  --fix -p ."
   },
   "directories": {
     "test": "test"
