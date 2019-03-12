@@ -1,14 +1,22 @@
+import { ConnextEntitiesPayload } from './types';
+
 export const connextEntitiesMutations = {
-  ['SET_ENTITIES_LOADED']: (
+  ['CONNEX_ENTITIES_LOADED']: (
     state: any,
-    entitiesLoaded: boolean,
+    { success, error }: ConnextEntitiesPayload,
   ) => {
-    state.entitiesLoaded = entitiesLoaded;
+    state.connexEntitiesLoaded = success;
+    if (error) {
+      state.connexEntitiesError = error;
+    }
   },
   ['EXTERNAL_WALLET_PERMISSION']: (
     state: any,
-    requestedExternalWalletPermission: boolean,
+    { success, error }: ConnextEntitiesPayload,
   ) => {
-    state.requestedExternalWalletPermission = requestedExternalWalletPermission;
+    state.requestedExternalWalletPermission = success;
+    if (error) {
+      state.ExternalWalletError = error;
+    }
   },
 };

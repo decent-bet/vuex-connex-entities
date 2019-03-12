@@ -23,13 +23,13 @@
   "homepage": "https://github.com/decent-bet/vuex-connex-entities#readme",
   "devDependencies": {
     "@types/jest": "^24.0.11",
-    "@types/node": "^11.11.0",
-    "@vechain/connex": "^1.1.0",
+    "@types/node": "^11.11.2",
+    "@vechain/connex": "^1.2.1",
     "ts-jest": "^24.0.0",
     "typescript": "^3.3.3333"
   },
   "dependencies": {
-    "@decent-bet/connex-entities": "3.0.0",
+    "@decent-bet/connex-entities": "3.0.1",
     "dev": "^0.1.3",
     "tslint": "^5.13.1",
     "vue": "^2.6.8",
