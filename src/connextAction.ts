@@ -17,6 +17,7 @@ export function connexAction<T>(
       WALLET_INFO
     );
     context.getContract = getContract(CONTRACT_INSTANCES, WALLET_INFO, context);
+    context.walletInfo = WALLET_INFO;
     return action(context, payload);
   };
 }
