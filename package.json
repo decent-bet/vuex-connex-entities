@@ -1,12 +1,13 @@
 {
   "name": "@decent-bet/vuex-connex-entities",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Vuex enhanced action for @decent-bet/connex-entities",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
-    "dist": "rm -rf dist/; tsc -p .",
-    "lint": "tslint  --fix -p ."
+    "build": "rm -rf dist/; tsc -p .",
+    "lint": "tslint  --fix -p .",
+    "publish": "npm run build && npm publish"
   },
   "directories": {
     "test": "test"
@@ -30,8 +31,6 @@
   },
   "dependencies": {
     "@decent-bet/connex-entities": "3.0.1",
-    "dev": "^0.1.3",
-    "tslint": "^5.13.1",
     "vue": "^2.6.8",
     "vuex": "^3.1.0"
   }
