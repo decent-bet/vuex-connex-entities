@@ -17,8 +17,6 @@ export function connexAction<T>(
       WALLET_INFO
     );
     context.getContract = getContract(CONTRACT_INSTANCES, WALLET_INFO, context);
-    // tslint:disable-next-line:no-debugger
-    debugger;
     return action(context, payload);
   };
 }
