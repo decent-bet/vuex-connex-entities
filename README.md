@@ -1,14 +1,14 @@
 ### Vuex Connex Entities
 
-Vuex Connex Entities allows to add @decent-bet/connex-entities capabilities to vuex. It consist for now in an enhanced action that add two new parameters to every action created based on it. 
+Vuex Connex Entities allows to add [@decent-bet/connex-entities](https://github.com/decent-bet/connex-entities) capabilities to vuex. It consist for now in an enhanced action that add two new parameters to every action created based on it. 
 
-- `getContract()`: return a contract instance of a class based on @decent-bet/connex-entities.
+- `getContract()`: return a contract instance of a class based on [@decent-bet/connex-entities](https://github.com/decent-bet/connex-entities).
 - `requestExternalWalletAccess()`: request access to an external wallet.
 
 #### Getting started
 
 > Install: `npm i --save @decent-bet/vuex-connex-entities`
-> Follow the instructions to setup a contract with @decent-bet/connex-entities.
+> Follow the instructions to setup a contract with [@decent-bet/connex-entities](https://github.com/decent-bet/connex-entities#api).
 
 
 ### Using the enhanced action
