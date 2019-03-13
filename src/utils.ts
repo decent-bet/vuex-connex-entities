@@ -7,21 +7,25 @@ import { WalletInfo } from './types';
 /// <reference types="@vechain/connex" />
 const commitSettings = { root: true };
 
+export const CONTRACT_INSTANCES: any = {};
+export const WALLET_INFO: WalletInfo = {
+  chainTag: undefined,
+  publicAddress: undefined
+};
+
 export function getContract<S, R>(
-  instances: any,
-  walletInfo: WalletInfo,
   context: ActionContext<S, R>
 ) {
-  return <T extends IConnexContract>(c: new () => T): T => {
-    const contractName = c.constructor.name;
-    if (!instances.hasOwnProperty(contractName)) {
-      setupContract<T, S, R>(c, walletInfo, instances, context);
+  return <T extends IConnexContract>(Ctor: new () => T): T => {
+    const { name } = Ctor;
+    if (!CONTRACT_INSTANCES.hasOwnProperty(name)) {
+      setupContract<T, S, R>(Ctor, context);
     }
 
-    const contract = instances[contractName];
+    const contract = CONTRACT_INSTANCES[name];
     if (!contract) {
       throw new Error(
-        `Requested instance for contract named ${contractName} not found.`
+        `Requested instance for contract named ${name} not found.`
       );
     }
     return contract as T;
@@ -30,8 +34,6 @@ export function getContract<S, R>(
 
 export function setupContract<T extends IConnexContract, S, R>(
   Ctor: new () => T,
-  walletInfo: WalletInfo,
-  instances: any = {},
   { commit }: ActionContext<S, R>
 ): void {
   const { connex } = window as any;
@@ -41,22 +43,22 @@ export function setupContract<T extends IConnexContract, S, R>(
     throw error;
   }
 
-  const { chainTag, publicAddress } = walletInfo;
+  const { chainTag, publicAddress } = WALLET_INFO;
   const contract = new Ctor();
-  const { name } = Ctor.constructor;
+  const { name } = Ctor;
   ((contract as unknown) as OnConnexReady).onConnexReady(
     connex as Connex,
     chainTag || '',
     publicAddress || ''
   );
-  instances[name] = contract;
-
+  CONTRACT_INSTANCES[name] = contract;
+  // tslint:disable-next-line:no-console
+  console.log('instances', CONTRACT_INSTANCES);
   commit('CONNEX_ENTITIES_LOADED', { success: true, name }, commitSettings);
 }
 
 export function requestExternalWalletAccess<S, R>(
-  context: ActionContext<S, R>,
-  walletInfo: WalletInfo
+  context: ActionContext<S, R>
 ) {
   return async (): Promise<boolean> => {
     const { commit } = context;
@@ -85,8 +87,8 @@ export function requestExternalWalletAccess<S, R>(
     }
 
     commit('EXTERNAL_WALLET_PERMISSION', { success: true }, commitSettings);
-    walletInfo.chainTag = chainTag;
-    walletInfo.publicAddress = publicAddress;
+    WALLET_INFO.chainTag = chainTag;
+    WALLET_INFO.publicAddress = publicAddress;
 
     return true;
   };
