@@ -1,6 +1,6 @@
 {
   "name": "@decent-bet/vuex-connex-entities",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Vuex enhanced action for @decent-bet/connex-entities",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -22,14 +22,16 @@
   },
   "homepage": "https://github.com/decent-bet/vuex-connex-entities#readme",
   "devDependencies": {
+    "eslint": "^5.15.1",
     "@types/jest": "^24.0.11",
     "@types/node": "^11.11.2",
     "@vechain/connex": "^1.2.1",
+    "@vue/eslint-config-typescript": "^4.0.0",
     "ts-jest": "^24.0.0",
     "typescript": "^3.3.3333"
   },
   "dependencies": {
-    "@decent-bet/connex-entities": "3.0.1",
+    "@decent-bet/connex-entities": "3.0.4",
     "vue": "^2.6.8",
     "vuex": "^3.1.0"
   }

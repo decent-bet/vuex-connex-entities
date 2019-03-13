@@ -5,5 +5,6 @@ export interface WalletInfo {
 
 export interface ConnextEntitiesPayload {
     success: boolean;
+    name: string;
     error?: Error;
 }
