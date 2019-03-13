@@ -5,6 +5,7 @@ import { WalletInfo } from './types';
 
 // eslint-disable-next-line spaced-comment
 /// <reference types="@vechain/connex" />
+const commitSettings = { root: true };
 
 export function getContract<S, R>(
   instances: any,
@@ -36,7 +37,7 @@ export function setupContract<T extends IConnexContract, S, R>(
   const { connex } = window as any;
   if (!connex) {
     const error = new Error('Connext not found in window object.');
-    commit('CONNEX_ENTITIES_LOADED', { success: false, error });
+    commit('CONNEX_ENTITIES_LOADED', { success: false, name: 'Global', error }, commitSettings);
     throw error;
   }
 
@@ -50,7 +51,7 @@ export function setupContract<T extends IConnexContract, S, R>(
   );
   instances[name] = contract;
 
-  commit('CONNEX_ENTITIES_LOADED', { success: true, name });
+  commit('CONNEX_ENTITIES_LOADED', { success: true, name }, commitSettings);
 }
 
 export function requestExternalWalletAccess<S, R>(
@@ -62,13 +63,13 @@ export function requestExternalWalletAccess<S, R>(
     const { connex, thor } = window as any;
     if (!connex) {
       const error = new Error('Connext not found in window object.');
-      commit('EXTERNAL_WALLET_PERMISSION', { success: false, error });
+      commit('EXTERNAL_WALLET_PERMISSION', { success: false, error }, commitSettings);
       throw error;
     }
 
     if (!thor) {
       const error = new Error('thor not found in window object.');
-      commit('EXTERNAL_WALLET_PERMISSION', { success: false, error });
+      commit('EXTERNAL_WALLET_PERMISSION', { success: false, error }, commitSettings);
       throw error;
     }
 
@@ -79,11 +80,11 @@ export function requestExternalWalletAccess<S, R>(
       const error = new Error(
         `No chainTag or publicAddress returned from requestExternalWalletAccess() => values: (chainTag: ${chainTag}, publicAddress: ${publicAddress})`
       );
-      commit('EXTERNAL_WALLET_PERMISSION', { success: false, error });
+      commit('EXTERNAL_WALLET_PERMISSION', { success: false, error }, commitSettings);
       return false;
     }
 
-    commit('EXTERNAL_WALLET_PERMISSION', { success: true });
+    commit('EXTERNAL_WALLET_PERMISSION', { success: true }, commitSettings);
     walletInfo.chainTag = chainTag;
     walletInfo.publicAddress = publicAddress;
 

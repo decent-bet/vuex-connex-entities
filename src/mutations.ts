@@ -3,11 +3,14 @@ import { ConnextEntitiesPayload } from './types';
 export const connexEntitiesMutations = {
   ['CONNEX_ENTITIES_LOADED']: (
     state: any,
-    { success, error }: ConnextEntitiesPayload,
+    { success, name, error }: ConnextEntitiesPayload,
   ) => {
-    state.connexEntitiesLoaded = success;
+    if (!state.connexEntitiesLoaded) {
+      state.connexEntitiesLoaded = {};
+    }
+    state.connexEntitiesLoaded[name] = success;
     if (error) {
-      state.connexEntitiesError = error;
+      state.connexEntitiesError[name] = error;
     }
   },
   ['EXTERNAL_WALLET_PERMISSION']: (
@@ -16,7 +19,7 @@ export const connexEntitiesMutations = {
   ) => {
     state.requestedExternalWalletPermission = success;
     if (error) {
-      state.ExternalWalletError = error;
+      state.externalWalletError = error;
     }
   },
 };
