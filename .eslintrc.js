@@ -7,11 +7,9 @@ module.exports = {
   },
 
   rules: {
-    "import/prefer-default-export": "off",
     "no-console": "off",
     "no-debugger": "off",
     "no-underscore-dangle": "off",
-    "import/extensions": "never",
     "comma-dangle": "off",
     "no-param-reassign": [
       "error",
@@ -25,8 +23,7 @@ module.exports = {
           "req",
           "request",
           "res",
-          "response",
-          "$scope"
+          "response"
         ]
       }
     ]

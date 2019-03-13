@@ -52,8 +52,6 @@ export function setupContract<T extends IConnexContract, S, R>(
     publicAddress || ''
   );
   CONTRACT_INSTANCES[name] = contract;
-  // tslint:disable-next-line:no-console
-  console.log('instances', CONTRACT_INSTANCES);
   commit('CONNEX_ENTITIES_LOADED', { success: true, name }, commitSettings);
 }
 
