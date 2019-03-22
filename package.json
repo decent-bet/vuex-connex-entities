@@ -22,17 +22,17 @@
   },
   "homepage": "https://github.com/decent-bet/vuex-connex-entities#readme",
   "devDependencies": {
-    "eslint": "^5.15.1",
+    "eslint": "^5.15.3",
     "@types/jest": "^24.0.11",
-    "@types/node": "^11.11.3",
-    "@vechain/connex": "^1.2.1",
+    "@types/node": "^11.11.5",
+    "@vechain/connex": "^1.2.2",
     "@vue/eslint-config-typescript": "^4.0.0",
     "ts-jest": "^24.0.0",
-    "typescript": "^3.3.3333"
+    "typescript": "^3.3.4000"
   },
   "dependencies": {
-    "@decent-bet/connex-entities": "3.1.0",
-    "vue": "^2.6.8",
+    "@decent-bet/connex-entities": "3.2.2",
+    "vue": "^2.6.10",
     "vuex": "^3.1.0"
   }
 }
