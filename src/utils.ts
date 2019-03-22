@@ -38,7 +38,7 @@ export function setupContract<T extends IConnexContract, S, R>(
 ): void {
   const { connex } = window as any;
   if (!connex) {
-    const error = new Error('Connext not found in window object.');
+    const error = new Error('Connex not found in window object.');
     commit('CONNEX_ENTITIES_LOADED', { success: false, name: 'Global', error }, commitSettings);
     throw error;
   }
