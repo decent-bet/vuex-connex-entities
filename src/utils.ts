@@ -7,6 +7,16 @@ import { WalletInfo } from './types';
 /// <reference types="@vechain/connex" />
 const commitSettings = { root: true };
 
+function toHex(input: string) {
+  // utf8 to latin1
+  const s = unescape(encodeURIComponent(input));
+  let h = '';
+  for (let i = 0; i < s.length; i++) {
+      h += s.charCodeAt(i).toString(16);
+  }
+  return '0x' + h;
+}
+
 export const CONTRACT_INSTANCES: any = {};
 export const WALLET_INFO: WalletInfo = {
   chainTag: undefined,
@@ -17,9 +27,9 @@ export function getContract<S, R>(
   context: ActionContext<S, R>
 ) {
   return <T extends IConnexContract>(Ctor: new () => T): T => {
-    const { name } = Ctor;
+    const name = toHex(Ctor.toString());
     if (!CONTRACT_INSTANCES[name]) {
-      setupContract<T, S, R>(Ctor, context);
+      setupContract<T, S, R>(Ctor, context, name);
     }
 
     const contract = CONTRACT_INSTANCES[name];
@@ -34,7 +44,8 @@ export function getContract<S, R>(
 
 export function setupContract<T extends IConnexContract, S, R>(
   Ctor: new () => T,
-  { commit }: ActionContext<S, R>
+  { commit }: ActionContext<S, R>,
+  name: string
 ): void {
   const { connex } = window as any;
   if (!connex) {
@@ -45,7 +56,6 @@ export function setupContract<T extends IConnexContract, S, R>(
 
   const { chainTag, publicAddress } = WALLET_INFO;
   const contract = new Ctor();
-  const { name } = Ctor;
   ((contract as unknown) as OnConnexReady).onConnexReady(
     connex as Connex,
     chainTag || '',
