@@ -1,6 +1,6 @@
 {
   "name": "@decent-bet/vuex-connex-entities",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Vuex enhanced action for @decent-bet/connex-entities",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
