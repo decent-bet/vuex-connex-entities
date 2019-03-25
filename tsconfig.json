@@ -12,9 +12,10 @@
         "inlineSourceMap": true,
         "declaration": true
     },
-    "exclude": ["**/*.spec.ts", "examples"],
+    "exclude": ["examples"],
     "include": [
         "./src",
+        "./tests",
         "jest.config.js"
     ]
 }
