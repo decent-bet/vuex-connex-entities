@@ -18,7 +18,7 @@ export function getContract<S, R>(
 ) {
   return <T extends IConnexContract>(Ctor: new () => T): T => {
     const { name } = Ctor;
-    if (!CONTRACT_INSTANCES.hasOwnProperty(name)) {
+    if (!CONTRACT_INSTANCES[name]) {
       setupContract<T, S, R>(Ctor, context);
     }
 
